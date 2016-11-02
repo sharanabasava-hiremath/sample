@@ -59,7 +59,6 @@ require_once('./dbconnect.php');
         <p class="lead">Description</p>
 		
 				
-
       
 
       <footer class="footer">
