@@ -27,7 +27,7 @@
 	//echo $slot_id;
 	//echo $username;
 	$user_id = mysql_fetch_assoc($result)["userid"];
-	$sql="UPDATE sensor_value SET user_id = '$user_id', user_value=1 WHERE slot_id = '$slot_id'";
+	$sql="UPDATE sensor_value SET userid = '$user_id', user_value=1 WHERE slot_id = '$slot_id'";
 	//echo $sql;
 	$result = mysql_query($sql) or die(mysql_error());
 ?>
@@ -42,8 +42,8 @@
 		//echo $slot_id;
 		//echo $username;
 		$user_id = mysql_fetch_assoc($result)["userid"];
-		$user_id=1;
-		$sql = "SELECT TIMEDIFF(exit_time,entry_time) as diff from activity_log where user_id='$user_id' order by exit_time desc limit 1";
+		//$user_id=1;
+		$sql = "SELECT TIMEDIFF(exit_time,entry_time) as diff from activity_log where usersid='$user_id' order by exit_time desc limit 1";
 		$result=mysql_query($sql);
 		
 		$sql2 = "SELECT price_per_hour from parking_space where parkingspace_id =".$parking_id;

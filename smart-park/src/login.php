@@ -1,37 +1,61 @@
 <?php
 $flag=0;
+
+
+
 ?>
 <?php
-if(isset($_POST['signup']))
+if(isset($_POST['login']))
 {
 require_once('./dbconnect.php');
 session_start(); 
 
 $username = $_POST['username']; 
-$email = $_POST['email'];
 $password = $_POST['password']; 
-$category = $_POST['category'];
-$vendor = $_POST['vendor'];
+$_SESSION["username"] = $username;
  
-echo  $username;
-echo $email;
-echo $password;
-echo $category;
-echo $vendor;
+$flag=0;
+$emailid=$_POST['username'];
+$password=$_POST['password'];
 
-$sql="INSERT INTO parking_user (name,emailid,password,category,type) VALUES ('$username','$email','$password','$category','$vendor')";
-if(mysql_query($sql)) 
-{
-	 header("Location:http://localhost/smart-park/smart-park/src/login.php");
-}
+$sql="SELECT * from parking_user where emailid='$username' and password='$password'";
+$result = mysql_query($sql) or die(mysql_error());
+$numrows = mysql_num_rows($result);
+if($numrows ==1)
+   {
+
+while ($row = mysql_fetch_array ($result)){
+$flag=1;
+if($row["type"]=="user")
+header("Location: /smart-park/src/show-area.php");
+if($row["type"]=="vendor")
+header("Location: /smart-park/src/vendorSpaceRegister.php");
+if($row["type"]=="admin")
+header("Location: /smart-park/src/admin_stats.php");
+
 	
+}
+   }
 else
+   {
+    $flag =2;
+   }
+
+/*if($flag==1)
 {
-	die(mysql_error());
-}
+//	echo "valid";
+	while ($row = mysql_fetch_array ($result))
+	{
+		
+   //header("Location: /smart-park/smart-park/src/show-area.php");
+	}
 
+}*/
 }
-
+else if(isset($_POST['signup']))
+{
+	header("Location:http://localhost/smart-park/src/signup.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +102,7 @@ else
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="login.php">Home</a></li>
+			<li role="presentation"><a href="vendorSpaceRegister.php">Vendor</a></li>
             <li role="presentation"><a href="about.php">About</a></li>
             <li role="presentation"><a href="contact.php">Contact</a></li>
           </ul>
@@ -85,35 +110,28 @@ else
         <h3 class="text-muted">SmartPark</h3>
       </div>
       <div class="jumbotron">
-		<h3 class="welcome-text">Sign Up</h3>
+		<h3 class="welcome-text">SmartPark Login</h3>
         <!-- <h1>Welcome to SmartPark! <br/>Please login to continue.</h1> -->
         <!-- <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p> -->
         <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p> -->
 		<div class="login-form">
 		  <form action="" method="post">
 		  <p>
+		  <?php if($flag==2)
+		  {?>
+			<p>Invalid username / password</p>
+		  <?php
+		  }?>
 			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >Name</label>
-			  <input type="text" class="form-control" name="username" required>
-			</div>
-			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >User ID / Email</label>
-			  <input type="text" class="form-control" name="email" required>
+			  <label class="control-label" for="inputDefault" >Email ID</label>
+			  <input type="text" class="form-control" name="username">
 			</div>
 			<div class="form-group">
 			  <label class="control-label" for="inputDefault" >Password</label>
-			  <input type="password" class="form-control" name="password" required>
+			  <input type="password" class="form-control" name="password">
 			</div>
 			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >Category</label>
-			  <input type="text" class="form-control" name="category" required>
-			</div>
-			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >Vendor</label>
-			  <input type="password" class="form-control" name="vendor" required>
-			</div>
-			<div class="form-group">
-			 	<p><button class="btn btn-lg btn-success" type="submit" name="signup">Sign Up</button></p>
+			 	<p><button class="btn btn-lg btn-success" type="submit" name="login" style="margin-right:10px">Login</button><button style="margin-left:10px" class="btn btn-lg btn-success" type="submit" name="signup">Sign Up</button></p>
 			</div>
 		  </p>
 		  

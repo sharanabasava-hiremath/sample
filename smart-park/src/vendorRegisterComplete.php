@@ -34,7 +34,7 @@ if(mysql_query($sql))
 		$result = mysql_query($sql) or die(mysql_error()); 
 	}
 	 setcookie("Registration", $area.":".$parking_name.":".$number_of_slots, time()+3600);
-	 header("Location:http://localhost/smart-park/smart-park/src/vendorRegisterSuccess.php");
+	 header("Location:http://localhost/smart-park/src/vendorRegisterSuccess.php");
 }
 	
 else

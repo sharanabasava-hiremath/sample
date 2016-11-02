@@ -1,11 +1,42 @@
+<?php
+$flag=0;
+?>
+<?php
+if(isset($_POST['signup']))
+{
+require_once('./dbconnect.php');
+session_start(); 
 
+$username = $_POST['username']; 
+$email = $_POST['email'];
+$password = $_POST['password']; 
+$category = $_POST['category'];
+$vendor = $_POST['vendor'];
+ 
+echo  $username;
+echo $email;
+echo $password;
+echo $category;
+echo $vendor;
+
+$sql="INSERT INTO parking_user (name,emailid,password,category,type) VALUES ('$username','$email','$password','$category','$vendor')";
+if(mysql_query($sql)) 
+{
+	 header("Location:http://localhost:8082/smart-park/src/login.php");
+}
+	
+else
+{
+	die(mysql_error());
+}
+
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<script src="http://maps.google.com/maps/api/js?libraries=places"></script>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,8 +77,7 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="login.php">Home</a></li>
-			<li role="presentation" class="active"><a href="vendorSpaceRegister.php">Vendor</a></li>
+            <li role="presentation" class="active"><a href="login.php">Home</a></li>
             <li role="presentation"><a href="about.php">About</a></li>
             <li role="presentation"><a href="contact.php">Contact</a></li>
           </ul>
@@ -55,40 +85,35 @@
         <h3 class="text-muted">SmartPark</h3>
       </div>
       <div class="jumbotron">
-		<h3 class="welcome-text">Vendor Parking Space Registration</h3>
+		<h3 class="welcome-text">Sign Up</h3>
         <!-- <h1>Welcome to SmartPark! <br/>Please login to continue.</h1> -->
         <!-- <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p> -->
         <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p> -->
-		<div class="register-form">
-		  <form action="vendorRegisterComplete.php" method="post">
+		<div class="login-form">
+		  <form action="" method="post">
 		  <p>
 			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >Parking Space Name</label>
-			  <input type="text" class="form-control" name="parkingname" required></input>
+			  <label class="control-label" for="inputDefault" >Name</label>
+			  <input type="text" class="form-control" name="username" required>
 			</div>
 			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >Parking Space Area</label>
-			  <input type="text" class="form-control" name="areaname" id="areanameid" required></input>
+			  <label class="control-label" for="inputDefault" >User ID / Email</label>
+			  <input type="text" class="form-control" name="email" required>
 			</div>
 			<div class="form-group">
-			 <input type="hidden" id="lat" name="lat" class="form-control" required></input>
-			<input  type="hidden" id="lng" name="lng" class="form-control" required></input>
+			  <label class="control-label" for="inputDefault" >Password</label>
+			  <input type="password" class="form-control" name="password" required>
 			</div>
 			<div class="form-group">
-			 <label class="control-label" for="inputDefault" >Number of Slots</label>
-			 <input type="number" name="numberofslots" class="form-control" min="1" max="100" required></input>
+			  <label class="control-label" for="inputDefault" >Category</label>
+			  <input type="text" class="form-control" name="category" required>
 			</div>
-				 <div class="form-group">
-				   <label class="control-label" for="inputDefault" >Slot naming convention <br> (If PA1-PA50 insert PA)</label>
-				   <input type="text" name="slotname" class="form-control" required></input>
-				 </div>
-				 <div class="form-group">
-				   <label class="control-label" for="inputDefault" >Price per hour</label>
-				   <input type="number" name="pricePerHour" class="form-control" min="1" max="1000" required></input>
-				 </div>
-				<div class="form-group">
-					   <p><button class="btn btn-lg btn-default" type="reset" name="Reset">Reset</button>
-				<button class="btn btn-lg btn-success" type="submit" name="register">Register</button></p>
+			<div class="form-group">
+			  <label class="control-label" for="inputDefault" >Vendor</label>
+			  <input type="password" class="form-control" name="vendor" required>
+			</div>
+			<div class="form-group">
+			 	<p><button class="btn btn-lg btn-success" type="submit" name="signup">Sign Up</button></p>
 			</div>
 		  </p>
 		  
@@ -129,35 +154,5 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
-	<script async>
-		var autocomplete = new google.maps.places.Autocomplete((document.getElementById('areanameid')));
-		      //autocomplete.bindTo('bounds', $scope.map);
-		       autocomplete.addListener('place_changed', function() {			    
-			    var place = autocomplete.getPlace();
-			    if (!place.geometry) {
-			    	//$('#addLifeEventModal').modal('show');
-			      	alert("Address entered is not valid, please enter again");
-			    } else {			 
-            var geocoder = new google.maps.Geocoder();
-               geocoder.geocode( { 'address': place.formatted_address},  function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        var destination1 = {
-                          lat:results[0].geometry.location.lat(),
-                          lng:results[0].geometry.location.lng()
-                        };
-                        document.getElementById('lat').value =  destination1.lat;     
-                        document.getElementById('lng').value =  destination1.lng; 
-                      } else {
-                      alert("Invalid destination address, please enter again");
-                    }
-                  });
-                
-				  	alert(place.formatted_address);
-			    	//$scope.correctDestinationAddress = place;
-			    }
-    });
-
-
-	</script>
   </body>
 </html>

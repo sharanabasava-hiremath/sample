@@ -1,20 +1,15 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<script src="http://maps.google.com/maps/api/js?libraries=places"></script>
-	<script>
-		var geocoder = new google.maps.Geocoder();
-		geocoder.geocode( { 'address': <<enteredAddress>>},  function(results, status) {
-			  if (status == google.maps.GeocoderStatus.OK) {
-				    var destination1 = {
-				    	lat:results[0].geometry.location.lat(),
-				    	lng:results[0].geometry.location.lng()
-				    };
-                            else {
-		alert("Invalid destination address, please enter again");
-	}
-	</script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzloJtoo1HH766PCHEDoU66HMxEE_TW6k&callback=initMap"></script>
+  <script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyDzloJtoo1HH766PCHEDoU66HMxEE_TW6k" async="" defer="defer" type="text/javascript"></script> 
+<script src='https://maps.googleapis.com/maps/api/js?key=&sensor=false&extension=.js'></script> 
+<script src="http://maps.googleapis.com/maps/api/js?key=BIzaSyA1gvGcwg6OPMaLsSutIecjkIXrABV3AoF"></script>;
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +35,7 @@
 	
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--<script src="js/ie-emulation-modes-warning.js"></script>-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -78,15 +73,26 @@
 			<div class="form-group">
 			  <label class="control-label" for="inputDefault" >Parking Space Area</label>
 			  <input type="text" class="form-control" name="areaname" id="areanameid" required></input>
-        <input  disabled type="text" id="lat" name="lat" class="form-control" required></input>
-        <input  disabled type="text" id="lng" name="lng" class="form-control" required></input>
 			</div>
 			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >Number of Slots</label>
-			  <input type="number" name="numberofslots" class="form-control" min="1" max="100" required></input>
+			 <input type="hidden" id="lat" name="lat" class="form-control" required></input>
+			<input  type="hidden" id="lng" name="lng" class="form-control" required></input>
 			</div>
 			<div class="form-group">
-			 	<p><button class="btn btn-lg btn-success" type="submit" name="register">Register</button></p>
+			 <label class="control-label" for="inputDefault" >Number of Slots</label>
+			 <input type="number" name="numberofslots" class="form-control" min="1" max="100" required></input>
+			</div>
+				 <div class="form-group">
+				   <label class="control-label" for="inputDefault" >Slot naming convention <br> (If PA1-PA50 insert PA)</label>
+				   <input type="text" name="slotname" class="form-control" required></input>
+				 </div>
+				 <div class="form-group">
+				   <label class="control-label" for="inputDefault" >Price per hour</label>
+				   <input type="number" name="pricePerHour" class="form-control" min="1" max="1000" required></input>
+				 </div>
+				<div class="form-group">
+					   <p><button class="btn btn-lg btn-default" type="reset" name="Reset">Reset</button>
+				<button class="btn btn-lg btn-success" type="submit" name="register">Register</button></p>
 			</div>
 		  </p>
 		  
