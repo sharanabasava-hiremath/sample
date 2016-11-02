@@ -52,7 +52,7 @@ require_once('./dbconnect.php');
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
   <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-  <script src="http://maps.google.com/maps/api/js?key=AIzaSyCEM-O9uBKcGLOk7nyrn9NwYdhnSWJj0vc"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzloJtoo1HH766PCHEDoU66HMxEE_TW6k&callback=initMap"></script>
     <script src="http://rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.min.js"></script>
 
     <style type="text/css">

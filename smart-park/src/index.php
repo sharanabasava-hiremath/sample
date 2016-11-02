@@ -1,24 +1,3 @@
-<?php 
-	require_once('./dbconnect.php');
-	
-	$location_id = $_GET['locationid'];
-	//echo $location_id;
-	
-	$sql = "select parking_space_name, parking_space_desc from parking_space where parkingspace_id=".$location_id;	
-	$result = mysql_query($sql) or die(mysql_error());
-		
-		$locationData = mysql_fetch_assoc($result);	
-
-	$query2 = "select slot_id from slot where parkingspace_id=".$location_id." and is_free=0 limit 15;";
-	$result = mysql_query($query2) or die(mysql_error());
-		$slotData = array();
-		while ($row = mysql_fetch_assoc($result)) 
-		{
-			array_push($slotData, $row);
-		}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,11 +33,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-	</head>
+  </head>
 
   <body>
 
@@ -67,30 +42,43 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="login.php">Home</a></li>
-			
-			 
             <li role="presentation"><a href="about.php">About</a></li>
             <li role="presentation"><a href="contact.php">Contact</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">SmartPark</h3>
       </div>
+
       <div class="jumbotron">
-		<h4>Parking Lot: <?= $locationData['parking_space_desc'] ?></h4>
-			<h4>Area: <?= $locationData['parking_space_name'] ?></h4>
-		<table>
-			<?php 
-			for($i=0; $i<count($slotData);$i++) {
-				echo '<tr style="margin-bottom:10px">';									
-				echo '<td style="margin-right:15px">'.$slotData[$i]['slot_id'].'</td>';
-				//echo '<td style="margin-right:15px"><button class="btn btn-xs btn btn-lg btn-success" onclick="reverseSlot('.$slotData[$i]['slot_id'].')">Book Slot</td>';
-				echo '<td style="margin-right:15px"><a href="./bookingPage.php?slotid='.$slotData[$i]['slot_id'].'"><button type="submit" class="btn btn-default btn btn-lg btn-success pull-right" style="margin-right:10px; margin-bottom:20px" >Book Slots</button></a></td>';
-				echo '</tr>';
-				
-			}
-			?>
-		</table>
-      </div>	  
+        <h1>Jumbotron heading</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-lg btn-success" href="signup.php" role="button">Sign up today</a></p>
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+      </div>
+
       <footer class="footer">
         <p>&copy; SmartPark 2015</p>
       </footer>

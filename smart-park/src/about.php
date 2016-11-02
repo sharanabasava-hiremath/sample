@@ -1,3 +1,7 @@
+<?php
+require_once('./dbconnect.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +15,11 @@
 
     <title>Narrow Jumbotron Template for Bootstrap</title>
 
+<<<<<<< HEAD:smart-park/smart-park/src/about.php
+    <!-- Bootstrap core CSS Test -->
+=======
     <!-- Bootstrap core CSS -->
+>>>>>>> 8040ed983aa0de74fd19488794cd0be1c5b5f5db:smart-park/src/about.php
     <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 	<link href="bootswatch/paper/bootstrap.min.css" rel="stylesheet">
 
@@ -41,43 +49,22 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">About</a></li>
-            <li role="presentation"><a href="#">Contact</a></li>
+            <li role="presentation" ><a href="login.php">Home</a></li>
+			<li role="presentation"><a href="vendorSpaceRegister.php">Vendor</a></li>
+            <li role="presentation" class="active"><a href="about.php">About</a></li>
+            <li role="presentation"><a href="contact.php">Contact</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">SmartPark</h3>
       </div>
 
       <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-      </div>
+        <h3>About Us</h3>
+        <p class="lead">Description</p>
+		
+				
 
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-      </div>
+      
 
       <footer class="footer">
         <p>&copy; SmartPark 2015</p>

@@ -1,66 +1,20 @@
-<?php
-$flag=0;
-
-
-
-?>
-<?php
-if(isset($_POST['login']))
-{
-require_once('./dbconnect.php');
-session_start(); 
-
-$username = $_POST['username']; 
-$password = $_POST['password']; 
-$_SESSION["username"] = $username;
- 
-$flag=0;
-$emailid=$_POST['username'];
-$password=$_POST['password'];
-
-$sql="SELECT * from parking_user where emailid='$username' and password='$password'";
-$result = mysql_query($sql) or die(mysql_error());
-$numrows = mysql_num_rows($result);
-if($numrows ==1)
-   {
-
-while ($row = mysql_fetch_array ($result)){
-$flag=1;
-if($row["type"]=="user")
-header("Location: /smart-park/smart-park/src/show-area.php");
-if($row["type"]=="vendor")
-header("Location: /smart-park/smart-park/src/vendorSpaceRegister.php");
-if($row["type"]=="admin")
-header("Location: /smart-park/smart-park/src/admin_stats.php");
-
-	
-}
-   }
-else
-   {
-    $flag =2;
-   }
-
-/*if($flag==1)
-{
-//	echo "valid";
-	while ($row = mysql_fetch_array ($result))
-	{
-		
-   //header("Location: /smart-park/smart-park/src/show-area.php");
-	}
-
-}*/
-}
-else if(isset($_POST['signup']))
-{
-	header("Location:http://localhost/smart-park/smart-park/src/signup.php");
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzloJtoo1HH766PCHEDoU66HMxEE_TW6k&callback=initMap"></script>
+	<script>
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode( { 'address': <<enteredAddress>>},  function(results, status) {
+			  if (status == google.maps.GeocoderStatus.OK) {
+				    var destination1 = {
+				    	lat:results[0].geometry.location.lat(),
+				    	lng:results[0].geometry.location.lng()
+				    };
+                            else {
+		alert("Invalid destination address, please enter again");
+	}
+	</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -86,7 +40,7 @@ else if(isset($_POST['signup']))
 	
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
+    <!--<script src="js/ie-emulation-modes-warning.js"></script>-->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -101,8 +55,8 @@ else if(isset($_POST['signup']))
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="login.php">Home</a></li>
-			<li role="presentation"><a href="vendorSpaceRegister.php">Vendor</a></li>
+            <li role="presentation"><a href="login.php">Home</a></li>
+			<li role="presentation" class="active"><a href="vendorSpaceRegister.php">Vendor</a></li>
             <li role="presentation"><a href="about.php">About</a></li>
             <li role="presentation"><a href="contact.php">Contact</a></li>
           </ul>
@@ -110,28 +64,29 @@ else if(isset($_POST['signup']))
         <h3 class="text-muted">SmartPark</h3>
       </div>
       <div class="jumbotron">
-		<h3 class="welcome-text">SmartPark Login</h3>
+		<h3 class="welcome-text">Vendor Parking Space Registration</h3>
         <!-- <h1>Welcome to SmartPark! <br/>Please login to continue.</h1> -->
         <!-- <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p> -->
         <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p> -->
-		<div class="login-form">
-		  <form action="" method="post">
+		<div class="register-form">
+		  <form action="vendorRegisterComplete.php" method="post">
 		  <p>
-		  <?php if($flag==2)
-		  {?>
-			<p>Invalid username / password</p>
-		  <?php
-		  }?>
 			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >Email ID</label>
-			  <input type="text" class="form-control" name="username">
+			  <label class="control-label" for="inputDefault" >Parking Space Name</label>
+			  <input type="text" class="form-control" name="parkingname" required></input>
 			</div>
 			<div class="form-group">
-			  <label class="control-label" for="inputDefault" >Password</label>
-			  <input type="password" class="form-control" name="password">
+			  <label class="control-label" for="inputDefault" >Parking Space Area</label>
+			  <input type="text" class="form-control" name="areaname" id="areanameid" required></input>
+        <input  disabled type="text" id="lat" name="lat" class="form-control" required></input>
+        <input  disabled type="text" id="lng" name="lng" class="form-control" required></input>
 			</div>
 			<div class="form-group">
-			 	<p><button class="btn btn-lg btn-success" type="submit" name="login" style="margin-right:10px">Login</button><button style="margin-left:10px" class="btn btn-lg btn-success" type="submit" name="signup">Sign Up</button></p>
+			  <label class="control-label" for="inputDefault" >Number of Slots</label>
+			  <input type="number" name="numberofslots" class="form-control" min="1" max="100" required></input>
+			</div>
+			<div class="form-group">
+			 	<p><button class="btn btn-lg btn-success" type="submit" name="register">Register</button></p>
 			</div>
 		  </p>
 		  
@@ -172,5 +127,35 @@ else if(isset($_POST['signup']))
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
+	<script async>
+		var autocomplete = new google.maps.places.Autocomplete((document.getElementById('areanameid')));
+		      //autocomplete.bindTo('bounds', $scope.map);
+		       autocomplete.addListener('place_changed', function() {			    
+			    var place = autocomplete.getPlace();
+			    if (!place.geometry) {
+			    	//$('#addLifeEventModal').modal('show');
+			      	alert("Address entered is not valid, please enter again");
+			    } else {			 
+            var geocoder = new google.maps.Geocoder();
+               geocoder.geocode( { 'address': place.formatted_address},  function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var destination1 = {
+                          lat:results[0].geometry.location.lat(),
+                          lng:results[0].geometry.location.lng()
+                        };
+                        document.getElementById('lat').value =  destination1.lat;     
+                        document.getElementById('lng').value =  destination1.lng; 
+                      } else {
+                      alert("Invalid destination address, please enter again");
+                    }
+                  });
+                
+				  	alert(place.formatted_address);
+			    	//$scope.correctDestinationAddress = place;
+			    }
+    });
+
+
+	</script>
   </body>
 </html>
