@@ -15,7 +15,8 @@ require_once('./dbconnect.php');
 
     <title>Narrow Jumbotron Template for Bootstrap</title>
 
-    <!-- Bootstrap core CSS Test sharana -->
+    <!-- Bootstrap core CSS Test shara
+    na -->
     <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 	<link href="bootswatch/paper/bootstrap.min.css" rel="stylesheet">
 
