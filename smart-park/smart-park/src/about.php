@@ -59,7 +59,6 @@ require_once('./dbconnect.php');
         <p class="lead">Description</p>
 		
 				
-      
 
       <footer class="footer">
         <p>&copy; SmartPark 2015</p>
